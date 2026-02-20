@@ -1,117 +1,126 @@
-let banco = JSON.parse(localStorage.getItem("financeiroCompleto")) || {};
+const meses = [
+    "Janeiro","Fevereiro","Março","Abril","Maio","Junho",
+    "Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"
+];
 
-let mesSelecionado = "";
+let dados = JSON.parse(localStorage.getItem("sistemaFinanceiro")) || {};
 
-function salvar() {
-    localStorage.setItem("financeiroCompleto", JSON.stringify(banco));
-}
+const mesSelect = document.getElementById("mesSelect");
+const pensaoInput = document.getElementById("pensaoInput");
+const resumoDiv = document.getElementById("resumo");
+const resumoGeralDiv = document.getElementById("resumoGeral");
+const statusPensao = document.getElementById("statusPensao");
 
-function formatar(valor) {
-    return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-}
+meses.forEach(mes => {
+    const option = document.createElement("option");
+    option.value = mes;
+    option.textContent = mes;
+    mesSelect.appendChild(option);
+});
 
-function selecionarMes() {
-    mesSelecionado = document.getElementById("mes").value;
+mesSelect.addEventListener("change", atualizarTela);
+document.getElementById("salvarPensao").addEventListener("click", salvarPensao);
+document.getElementById("addRecebimento").addEventListener("click", adicionarRecebimento);
+document.getElementById("pagarPensao").addEventListener("click", pagarPensao);
 
-    if (!banco[mesSelecionado]) {
-        banco[mesSelecionado] = {
-            pensaoMensal: 0,
-            recebimentos: [],
-            pagamentosPensao: []
+function obterMesAtual() {
+    const mes = mesSelect.value;
+    if (!dados[mes]) {
+        dados[mes] = {
+            pensao: 0,
+            pensaoPaga: false,
+            recebimentos: []
         };
     }
-
-    salvar();
-    atualizarResumo();
+    return dados[mes];
 }
 
-function definirPensao() {
-    if (!mesSelecionado) return;
+function salvar() {
+    localStorage.setItem("sistemaFinanceiro", JSON.stringify(dados));
+}
 
-    banco[mesSelecionado].pensaoMensal =
-        parseFloat(document.getElementById("pensaoMensal").value) || 0;
-
+function salvarPensao() {
+    const mes = obterMesAtual();
+    mes.pensao = parseFloat(pensaoInput.value) || 0;
     salvar();
-    atualizarResumo();
+    atualizarTela();
 }
 
 function adicionarRecebimento() {
-    if (!mesSelecionado) return;
-
-    const data = document.getElementById("dataRecebimento").value;
-    const valor = parseFloat(document.getElementById("valorRecebido").value);
+    const mes = obterMesAtual();
+    const data = document.getElementById("dataInput").value;
+    const valor = parseFloat(document.getElementById("valorInput").value);
 
     if (!data || !valor) return;
 
-    const dizimo = valor * 0.10;
-    const oferta = valor * 0.05;
-
-    banco[mesSelecionado].recebimentos.push({ data, valor, dizimo, oferta });
+    mes.recebimentos.push({
+        data,
+        valor,
+        dizimo: valor * 0.10,
+        oferta: valor * 0.05
+    });
 
     salvar();
-    atualizarResumo();
+    atualizarTela();
 }
 
 function pagarPensao() {
-    if (!mesSelecionado) return;
-
-    const valor = parseFloat(document.getElementById("valorPensaoPago").value);
-    if (!valor) return;
-
-    banco[mesSelecionado].pagamentosPensao.push(valor);
-
+    const mes = obterMesAtual();
+    mes.pensaoPaga = true;
     salvar();
-    atualizarResumo();
+    atualizarTela();
 }
 
-function atualizarResumo() {
-    if (!mesSelecionado) return;
-
-    const dados = banco[mesSelecionado];
+function atualizarTela() {
+    const mes = obterMesAtual();
 
     let totalRecebido = 0;
     let totalDizimo = 0;
     let totalOferta = 0;
 
-    dados.recebimentos.forEach(r => {
+    mes.recebimentos.forEach(r => {
         totalRecebido += r.valor;
         totalDizimo += r.dizimo;
         totalOferta += r.oferta;
     });
 
-    let totalPensaoPaga = dados.pagamentosPensao.reduce((a, b) => a + b, 0);
-    let pensaoRestante = dados.pensaoMensal - totalPensaoPaga;
-    if (pensaoRestante < 0) pensaoRestante = 0;
+    const saldo = totalRecebido - totalDizimo - totalOferta - mes.pensao;
 
-    let saldo = totalRecebido - (totalDizimo + totalOferta + totalPensaoPaga);
-
-    let statusPensao = pensaoRestante === 0 && dados.pensaoMensal > 0
-        ? "<span style='color:green;font-weight:bold;'>Pensão Quitada</span>"
-        : "<span style='color:red;font-weight:bold;'>Pendente</span>";
-
-    document.getElementById("resumo").innerHTML = `
-        <h3>${mesSelecionado}</h3>
-        <p>Total Recebido: ${formatar(totalRecebido)}</p>
-        <p>Total Dízimo: ${formatar(totalDizimo)}</p>
-        <p>Total Oferta: ${formatar(totalOferta)}</p>
-        <p>Pensão Mensal: ${formatar(dados.pensaoMensal)}</p>
-        <p>Pensão Paga: ${formatar(totalPensaoPaga)}</p>
-        <p>Pensão Restante: ${formatar(pensaoRestante)}</p>
-        <p>Status: ${statusPensao}</p>
-        <h3>Saldo Atual: ${formatar(saldo)}</h3>
+    resumoDiv.innerHTML = `
+        <p>Total Recebido: R$ ${totalRecebido.toFixed(2)}</p>
+        <p>Total Dízimo: R$ ${totalDizimo.toFixed(2)}</p>
+        <p>Total Oferta: R$ ${totalOferta.toFixed(2)}</p>
+        <p>Pensão: R$ ${mes.pensao.toFixed(2)}</p>
+        <p>Saldo Final: R$ ${saldo.toFixed(2)}</p>
     `;
 
-    let lista = document.getElementById("historico");
-    lista.innerHTML = "";
+    if (mes.pensaoPaga) {
+        statusPensao.innerHTML = "<span class='verde'>Pensão Paga</span>";
+    } else {
+        statusPensao.innerHTML = "<span class='vermelho'>Pensão Pendente</span>";
+    }
 
-    dados.recebimentos.forEach(r => {
-        const item = document.createElement("li");
-        item.innerHTML = `
-            <strong>${r.data}</strong><br>
-            Recebeu: ${formatar(r.valor)} |
-            Dízimo: ${formatar(r.dizimo)} |
-            Oferta: ${formatar(r.oferta)}
-        `;
-        lista.appendChild(item);
-    });
+    gerarResumoGeral();
 }
+
+function gerarResumoGeral() {
+    let html = "";
+
+    meses.forEach(mes => {
+        if (dados[mes]) {
+            html += `
+                <p>
+                ${mes} - 
+                Pensão: R$ ${dados[mes].pensao.toFixed(2)} - 
+                ${dados[mes].pensaoPaga ? 
+                    "<span class='verde'>Paga</span>" : 
+                    "<span class='vermelho'>Pendente</span>"}
+                </p>
+            `;
+        }
+    });
+
+    resumoGeralDiv.innerHTML = html;
+}
+
+atualizarTela();
