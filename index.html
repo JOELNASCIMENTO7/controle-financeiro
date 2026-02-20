@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Controle Financeiro</title>
+<title>Sistema Financeiro</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,21 +11,21 @@
 <div class="container">
 
 <header>
-    <h1>Controle Financeiro Mensal</h1>
+    <h1>Sistema Financeiro Mensal</h1>
 </header>
 
-<div class="grid">
+<div class="dashboard">
 
 <div class="card">
     <h2>Mês</h2>
     <input type="text" id="mes" placeholder="Ex: Janeiro 2025">
-    <button onclick="definirMes()">Salvar</button>
+    <button onclick="definirMes()">Salvar Mês</button>
 </div>
 
 <div class="card">
     <h2>Pensão Mensal</h2>
-    <input type="number" id="pensaoMensal" placeholder="Valor total">
-    <button onclick="definirPensao()">Salvar</button>
+    <input type="number" id="pensaoMensal" placeholder="Valor total da pensão">
+    <button onclick="definirPensao()">Salvar Pensão</button>
 </div>
 
 <div class="card">
@@ -38,12 +38,12 @@
 <div class="card">
     <h2>Pagar Pensão</h2>
     <input type="number" id="valorPensaoPago" placeholder="Valor pago">
-    <button onclick="pagarPensao()">Registrar</button>
+    <button onclick="pagarPensao()">Registrar Pagamento</button>
 </div>
 
 </div>
 
-<div class="card resumo-card">
+<div class="card resumo">
     <h2>Resumo do Mês</h2>
     <div id="resumo"></div>
 </div>
@@ -55,6 +55,6 @@
 
 </div>
 
-<script src="script.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
