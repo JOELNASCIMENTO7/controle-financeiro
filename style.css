@@ -1,47 +1,90 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #121212;
-  color: white;
-  padding: 15px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    background: #1e293b;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
 .card {
-  background: #1e1e1e;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 12px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
 }
 
 button {
-  padding: 6px 10px;
-  margin-top: 5px;
-  margin-right: 5px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.pago {
-  background: #1f6f1f;
+button:hover {
+    background: #1d4ed8;
 }
 
-.pendente {
-  background: #5c1f1f;
+.resumo-card {
+    margin-top: 20px;
 }
 
-.atrasado {
-  background: #8b0000;
+#resumo p {
+    margin: 6px 0;
 }
 
-.barra {
-  height: 10px;
-  background: #333;
-  border-radius: 5px;
-  margin-top: 5px;
-  overflow: hidden;
+#resumo h3 {
+    margin-top: 15px;
+    color: #111827;
 }
 
-.progresso {
-  height: 10px;
-  background: #4caf50;
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #f1f5f9;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
 }
