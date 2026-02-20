@@ -11,18 +11,14 @@ body {
 }
 
 header {
-    background: #1e293b;
+    background: #111827;
     color: white;
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
 }
 
-header h1 {
-    margin: 0;
-}
-
-.grid {
+.dashboard {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
@@ -32,13 +28,11 @@ header h1 {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
 
 .card h2 {
     margin-top: 0;
-    font-size: 18px;
-    margin-bottom: 15px;
 }
 
 input {
@@ -64,7 +58,7 @@ button:hover {
     background: #1d4ed8;
 }
 
-.resumo-card {
+.resumo {
     margin-top: 20px;
 }
 
@@ -74,7 +68,6 @@ button:hover {
 
 #resumo h3 {
     margin-top: 15px;
-    color: #111827;
 }
 
 ul {
@@ -83,7 +76,7 @@ ul {
 }
 
 li {
-    background: #f1f5f9;
+    background: #eef2f7;
     padding: 10px;
     border-radius: 6px;
     margin-bottom: 8px;
