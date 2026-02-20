@@ -1,31 +1,43 @@
-let dados = JSON.parse(localStorage.getItem("financeiro")) || {
-    mes: "",
-    pensaoMensal: 0,
-    recebimentos: [],
-    pagamentosPensao: []
-};
+let banco = JSON.parse(localStorage.getItem("financeiroCompleto")) || {};
+
+let mesSelecionado = "";
 
 function salvar() {
-    localStorage.setItem("financeiro", JSON.stringify(dados));
+    localStorage.setItem("financeiroCompleto", JSON.stringify(banco));
 }
 
 function formatar(valor) {
     return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
-function definirMes() {
-    dados.mes = document.getElementById("mes").value;
+function selecionarMes() {
+    mesSelecionado = document.getElementById("mes").value;
+
+    if (!banco[mesSelecionado]) {
+        banco[mesSelecionado] = {
+            pensaoMensal: 0,
+            recebimentos: [],
+            pagamentosPensao: []
+        };
+    }
+
     salvar();
     atualizarResumo();
 }
 
 function definirPensao() {
-    dados.pensaoMensal = parseFloat(document.getElementById("pensaoMensal").value) || 0;
+    if (!mesSelecionado) return;
+
+    banco[mesSelecionado].pensaoMensal =
+        parseFloat(document.getElementById("pensaoMensal").value) || 0;
+
     salvar();
     atualizarResumo();
 }
 
 function adicionarRecebimento() {
+    if (!mesSelecionado) return;
+
     const data = document.getElementById("dataRecebimento").value;
     const valor = parseFloat(document.getElementById("valorRecebido").value);
 
@@ -34,21 +46,28 @@ function adicionarRecebimento() {
     const dizimo = valor * 0.10;
     const oferta = valor * 0.05;
 
-    dados.recebimentos.push({ data, valor, dizimo, oferta });
+    banco[mesSelecionado].recebimentos.push({ data, valor, dizimo, oferta });
+
     salvar();
     atualizarResumo();
 }
 
 function pagarPensao() {
+    if (!mesSelecionado) return;
+
     const valor = parseFloat(document.getElementById("valorPensaoPago").value);
     if (!valor) return;
 
-    dados.pagamentosPensao.push(valor);
+    banco[mesSelecionado].pagamentosPensao.push(valor);
+
     salvar();
     atualizarResumo();
 }
 
 function atualizarResumo() {
+    if (!mesSelecionado) return;
+
+    const dados = banco[mesSelecionado];
 
     let totalRecebido = 0;
     let totalDizimo = 0;
@@ -71,7 +90,7 @@ function atualizarResumo() {
         : "<span style='color:red;font-weight:bold;'>Pendente</span>";
 
     document.getElementById("resumo").innerHTML = `
-        <h3>${dados.mes || "Mês não definido"}</h3>
+        <h3>${mesSelecionado}</h3>
         <p>Total Recebido: ${formatar(totalRecebido)}</p>
         <p>Total Dízimo: ${formatar(totalDizimo)}</p>
         <p>Total Oferta: ${formatar(totalOferta)}</p>
@@ -96,5 +115,3 @@ function atualizarResumo() {
         lista.appendChild(item);
     });
 }
-
-atualizarResumo();
