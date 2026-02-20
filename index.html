@@ -1,60 +1,73 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema Financeiro</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Sistema Financeiro</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
 
-<header>
-    <h1>Sistema Financeiro Mensal</h1>
-</header>
+    <h1>Controle Financeiro</h1>
 
-<div class="dashboard">
+    <!-- SELEÇÃO DE MÊS -->
+    <div class="card">
+        <h2>Selecionar Mês</h2>
+        <select id="mes" onchange="trocarMes()">
+            <option value="Janeiro">Janeiro</option>
+            <option value="Fevereiro">Fevereiro</option>
+            <option value="Março">Março</option>
+            <option value="Abril">Abril</option>
+            <option value="Maio">Maio</option>
+            <option value="Junho">Junho</option>
+            <option value="Julho">Julho</option>
+            <option value="Agosto">Agosto</option>
+            <option value="Setembro">Setembro</option>
+            <option value="Outubro">Outubro</option>
+            <option value="Novembro">Novembro</option>
+            <option value="Dezembro">Dezembro</option>
+        </select>
+    </div>
 
-<div class="card">
-    <h2>Mês</h2>
-    <input type="text" id="mes" placeholder="Ex: Janeiro 2025">
-    <button onclick="definirMes()">Salvar Mês</button>
-</div>
+    <!-- DEFINIR PENSÃO -->
+    <div class="card">
+        <h2>Configurar Pensão Mensal</h2>
+        <input type="number" id="pensaoMensal" placeholder="Valor da pensão">
+        <button onclick="definirPensao()">Salvar Valor</button>
+    </div>
 
-<div class="card">
-    <h2>Pensão Mensal</h2>
-    <input type="number" id="pensaoMensal" placeholder="Valor total da pensão">
-    <button onclick="definirPensao()">Salvar Pensão</button>
-</div>
+    <!-- ADICIONAR RECEBIMENTO -->
+    <div class="card">
+        <h2>Adicionar Recebimento</h2>
+        <input type="date" id="dataRecebimento">
+        <input type="number" id="valorRecebido" placeholder="Valor recebido">
+        <button onclick="adicionarRecebimento()">Adicionar</button>
+    </div>
 
-<div class="card">
-    <h2>Registrar Recebimento</h2>
-    <input type="date" id="dataRecebimento">
-    <input type="number" id="valorRecebido" placeholder="Valor recebido">
-    <button onclick="adicionarRecebimento()">Registrar</button>
-</div>
+    <!-- PAGAMENTO PENSÃO -->
+    <div class="card">
+        <h2>Pagar Pensão</h2>
+        <input type="number" id="valorPensaoPago" placeholder="Valor pago">
+        <button onclick="pagarPensao()">Registrar Pagamento</button>
+        <button onclick="marcarComoPago()">Marcar como Paga</button>
+    </div>
 
-<div class="card">
-    <h2>Pagar Pensão</h2>
-    <input type="number" id="valorPensaoPago" placeholder="Valor pago">
-    <button onclick="pagarPensao()">Registrar Pagamento</button>
-</div>
+    <!-- RESUMO -->
+    <div class="card resumo">
+        <h2>Resumo do Mês</h2>
+        <div id="resumo"></div>
+    </div>
 
-</div>
-
-<div class="card resumo">
-    <h2>Resumo do Mês</h2>
-    <div id="resumo"></div>
-</div>
-
-<div class="card">
-    <h2>Histórico de Recebimentos</h2>
-    <ul id="historico"></ul>
-</div>
+    <!-- HISTÓRICO -->
+    <div class="card">
+        <h2>Histórico de Recebimentos</h2>
+        <ul id="historico"></ul>
+    </div>
 
 </div>
 
 <script src="app.js"></script>
+
 </body>
 </html>
