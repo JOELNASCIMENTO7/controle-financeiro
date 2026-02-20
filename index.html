@@ -1,16 +1,60 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Controle Financeiro</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle Financeiro</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Controle Financeiro 2026</h1>
-  <div id="meses"></div>
 
-  <script src="app.js"></script>
+<div class="container">
+
+<header>
+    <h1>Controle Financeiro Mensal</h1>
+</header>
+
+<div class="grid">
+
+<div class="card">
+    <h2>Mês</h2>
+    <input type="text" id="mes" placeholder="Ex: Janeiro 2025">
+    <button onclick="definirMes()">Salvar</button>
+</div>
+
+<div class="card">
+    <h2>Pensão Mensal</h2>
+    <input type="number" id="pensaoMensal" placeholder="Valor total">
+    <button onclick="definirPensao()">Salvar</button>
+</div>
+
+<div class="card">
+    <h2>Registrar Recebimento</h2>
+    <input type="date" id="dataRecebimento">
+    <input type="number" id="valorRecebido" placeholder="Valor recebido">
+    <button onclick="adicionarRecebimento()">Registrar</button>
+</div>
+
+<div class="card">
+    <h2>Pagar Pensão</h2>
+    <input type="number" id="valorPensaoPago" placeholder="Valor pago">
+    <button onclick="pagarPensao()">Registrar</button>
+</div>
+
+</div>
+
+<div class="card resumo-card">
+    <h2>Resumo do Mês</h2>
+    <div id="resumo"></div>
+</div>
+
+<div class="card">
+    <h2>Histórico de Recebimentos</h2>
+    <ul id="historico"></ul>
+</div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
