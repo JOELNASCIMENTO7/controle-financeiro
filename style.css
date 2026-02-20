@@ -1,83 +1,55 @@
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
     background: #f4f6f9;
+    margin: 0;
+    padding: 20px;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 900px;
     margin: auto;
-    padding: 20px;
 }
 
-header {
-    background: #111827;
-    color: white;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .card {
     background: white;
     padding: 20px;
+    margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-.card h2 {
-    margin-top: 0;
-}
-
-input {
-    width: 100%;
+input, select {
     padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    margin: 5px 0;
+    width: 100%;
 }
 
 button {
-    width: 100%;
     padding: 10px;
+    margin-top: 10px;
+    width: 100%;
     border: none;
-    border-radius: 6px;
-    background: #2563eb;
+    background: #2d6cdf;
     color: white;
     cursor: pointer;
-    font-weight: bold;
+    border-radius: 5px;
 }
 
 button:hover {
-    background: #1d4ed8;
+    background: #1b4fa3;
 }
 
-.resumo {
-    margin-top: 20px;
+.verde {
+    color: green;
+    font-weight: bold;
 }
 
-#resumo p {
-    margin: 6px 0;
-}
-
-#resumo h3 {
-    margin-top: 15px;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    background: #eef2f7;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 8px;
+.vermelho {
+    color: red;
+    font-weight: bold;
 }
