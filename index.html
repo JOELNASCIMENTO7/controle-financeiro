@@ -9,65 +9,44 @@
 
 <div class="container">
 
-    <h1>Controle Financeiro</h1>
+    <h1>Sistema Financeiro Mensal</h1>
 
-    <!-- SELEÇÃO DE MÊS -->
     <div class="card">
-        <h2>Selecionar Mês</h2>
-        <select id="mes" onchange="trocarMes()">
-            <option value="Janeiro">Janeiro</option>
-            <option value="Fevereiro">Fevereiro</option>
-            <option value="Março">Março</option>
-            <option value="Abril">Abril</option>
-            <option value="Maio">Maio</option>
-            <option value="Junho">Junho</option>
-            <option value="Julho">Julho</option>
-            <option value="Agosto">Agosto</option>
-            <option value="Setembro">Setembro</option>
-            <option value="Outubro">Outubro</option>
-            <option value="Novembro">Novembro</option>
-            <option value="Dezembro">Dezembro</option>
-        </select>
+        <label>Selecione o Mês:</label>
+        <select id="mesSelect"></select>
     </div>
 
-    <!-- DEFINIR PENSÃO -->
     <div class="card">
-        <h2>Configurar Pensão Mensal</h2>
-        <input type="number" id="pensaoMensal" placeholder="Valor da pensão">
-        <button onclick="definirPensao()">Salvar Valor</button>
+        <h2>Configurar Pensão</h2>
+        <input type="number" id="pensaoInput" placeholder="Valor da pensão">
+        <button id="salvarPensao">Salvar</button>
     </div>
 
-    <!-- ADICIONAR RECEBIMENTO -->
     <div class="card">
         <h2>Adicionar Recebimento</h2>
-        <input type="date" id="dataRecebimento">
-        <input type="number" id="valorRecebido" placeholder="Valor recebido">
-        <button onclick="adicionarRecebimento()">Adicionar</button>
+        <input type="date" id="dataInput">
+        <input type="number" id="valorInput" placeholder="Valor">
+        <button id="addRecebimento">Adicionar</button>
     </div>
 
-    <!-- PAGAMENTO PENSÃO -->
     <div class="card">
         <h2>Pagar Pensão</h2>
-        <input type="number" id="valorPensaoPago" placeholder="Valor pago">
-        <button onclick="pagarPensao()">Registrar Pagamento</button>
-        <button onclick="marcarComoPago()">Marcar como Paga</button>
+        <button id="pagarPensao">Marcar como Paga</button>
+        <p id="statusPensao"></p>
     </div>
 
-    <!-- RESUMO -->
     <div class="card resumo">
         <h2>Resumo do Mês</h2>
         <div id="resumo"></div>
     </div>
 
-    <!-- HISTÓRICO -->
     <div class="card">
-        <h2>Histórico de Recebimentos</h2>
-        <ul id="historico"></ul>
+        <h2>Resumo Geral Anual</h2>
+        <div id="resumoGeral"></div>
     </div>
 
 </div>
 
 <script src="app.js"></script>
-
 </body>
 </html>
